@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Съёмка и монтаж коротких видео | Reels · Shorts · TikTok</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --bg-soft: #141414;
+    --accent: #c8ff00;
+    --text: #ffffff;
+    --muted: #8a8a8a;
+    --border: #222;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .accent { color: var(--accent); }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    position: relative;
+    padding: 120px 0 80px;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -30%; right: -20%;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(200,255,0,0.18), transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: float 8s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-30px, 30px); }
+  }
+  .hero-inner { position: relative; z-index: 1; max-width: 900px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 16px;
+    background: rgba(200,255,0,0.1);
+    border: 1px solid rgba(200,255,0,0.3);
+    border-radius: 100px;
+    font-size: 14px; font-weight: 500;
+    color: var(--accent);
+    margin-bottom: 32px;
+  }
+  .badge::before {
+    content: ''; width: 8px; height: 8px;
+    background: var(--accent); border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  h1 {
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+  }
+  .hero p {
+    font-size: clamp(1.05rem, 2vw, 1.35rem);
+    color: var(--muted);
+    max-width: 620px;
+    margin-bottom: 40px;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 18px 36px;
+    background: var(--accent);
+    color: #000;
+    border: none;
+    border-radius: 100px;
+    font-size: 1rem; font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(200,255,0,0.3);
+  }
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    margin-left: 12px;
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); box-shadow: none; }
+
+  /* ---------- SECTIONS ---------- */
+  section { padding: 100px 0; }
+  .section-head { margin-bottom: 60px; }
+  .section-head .label {
+    font-size: 14px; font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-size: clamp(2rem, 4.5vw, 3.25rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  /* ---------- STATS ---------- */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2px;
+    background: var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: -60px;
+    position: relative;
+    z-index: 2;
+  }
+  .stat {
+    background: var(--bg-soft);
+    padding: 40px 32px;
+    text-align: center;
+  }
+  .stat .num {
+    font-size: 2.75rem; font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .stat .lbl { font-size: 0.9rem; color: var(--muted); }
+
+  /* ---------- SERVICES ---------- */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+  .card {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px 32px;
+    transition: transform 0.3s, border-color 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card:hover { transform: translateY(-6px); border-color: rgba(200,255,0,0.4); }
+  .card.featured { border-color: var(--accent); }
+  .card.featured::before {
+    content: 'ХИТ';
+    position: absolute; top: 20px; right: 20px;
+    background: var(--accent); color: #000;
+    font-size: 11px; font-weight: 800;
+    padding: 4px 12px; border-radius: 100px;
+    letter-spacing: 0.1em;
+  }
+  .card h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 12px; }
+  .card .desc { color: var(--muted); margin-bottom: 24px; font-size: 0.95rem; }
+  .card ul { list-style: none; margin-bottom: 32px; }
+  .card ul li {
+    padding: 8px 0 8px 26px;
+    position: relative;
+    font-size: 0.95rem;
+    color: #ccc;
+  }
+  .card ul li::before {
+    content: '✓';
+    position: absolute; left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .price { font-size: 1.75rem; font-weight: 800; margin-bottom: 4px; }
+  .price small { font-size: 0.9rem; color: var(--muted); font-weight: 400; }
+  /* ---------- TERMS (плашка под услугами) ---------- */
+  .terms {
+    margin-top: 32px;
+    padding: 28px 32px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 32px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .terms-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    flex: 1 1 280px;
+    font-size: 0.95rem;
+    color: #ccc;
+    line-height: 1.5;
+  }
+  .terms-item .icon {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background: rgba(200, 255, 0, 0.12);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .terms-item strong {
+    color: var(--text);
+    display: block;
+    margin-bottom: 4px;
+    font-size: 1rem;
+  }
+  .terms-item .accent { color: var(--accent); }
+  @media (max-width: 640px) {
+    .terms { padding: 24px 20px; }
+  }
+
+  /* ---------- PROCESS ---------- */
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; }
+  .step .num {
+    font-size: 3rem; font-weight: 900;
+    color: var(--accent);
+    opacity: 0.3;
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .step h4 { font-size: 1.15rem; margin-bottom: 8px; }
+  .step p { color: var(--muted); font-size: 0.9rem; }
+
+  /* ---------- PORTFOLIO ---------- */
+    /* ---------- PORTFOLIO ---------- */
+  .portfolio {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+  }
+  .portfolio-item {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .video-card {
+    aspect-ratio: 9 / 16;
+    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+    border-radius: 20px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid var(--border);
+    background-size: cover;
+    background-position: center;
+  }
+  .video-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(200, 255, 0, 0.15);
+    border-color: rgba(200, 255, 0, 0.4);
+  }
+  .video-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%);
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .video-card:hover::after {
+    opacity: 0.7;
+  }
+  .play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 64px;
+    height: 64px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: #fff;
+    transition: all 0.3s;
+    z-index: 2;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  .video-card:hover .play {
+    background: var(--accent);
+    color: #000;
+    transform: translate(-50%, -50%) scale(1.15);
+    border-color: var(--accent);
+  }
+  .portfolio-caption {
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-align: center;
+    color: var(--text);
+    line-height: 1.4;
+    padding: 0 8px;
+  }
+  .portfolio-note {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px 24px;
+    background: var(--bg-soft);
+    border: 1px dashed var(--border);
+    border-radius: 16px;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .portfolio-note strong {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* ---------- REVIEWS ---------- */
+  .reviews { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+  .review {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 32px;
+  }
+  .review p { color: #ccc; margin-bottom: 24px; font-size: 0.95rem; }
+  .review .author { display: flex; align-items: center; gap: 12px; }
+  .avatar {
+    width: 44px; height: 44px;
+    background: var(--accent);
+    color: #000;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800;
+  }
+  .author .name { font-weight: 600; font-size: 0.95rem; }
+  .author .role { font-size: 0.8rem; color: var(--muted); }
+
+  /* ---------- FAQ ---------- */
+  .faq { max-width: 800px; margin: 0 auto; }
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+  }
+  .faq-q {
+    padding: 24px 0;
+    font-size: 1.1rem; font-weight: 600;
+    cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 20px;
+    transition: color 0.2s;
+  }
+  .faq-q:hover { color: var(--accent); }
+  .faq-q::after {
+    content: '+';
+    font-size: 1.5rem;
+    color: var(--accent);
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+  .faq-item.open .faq-q::after { transform: rotate(45deg); }
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s, padding 0.3s;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .faq-item.open .faq-a { max-height: 300px; padding-bottom: 24px; }
+
+  /* ---------- CONTACT ---------- */
+  .contact {
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  .contact h2 { margin-bottom: 16px; }
+  .contact > .container > p { color: var(--muted); margin-bottom: 48px; }
+  form {
+    max-width: 520px;
+    margin: 0 auto;
+    display: flex; flex-direction: column; gap: 14px;
+    text-align: left;
+  }
+  input, textarea {
+    padding: 16px 20px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--text);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.2s;
+  }
+  input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  textarea { resize: vertical; min-height: 100px; }
+  form .btn { justify-content: center; width: 100%; margin-top: 8px; }
+  .contacts-row {
+    display: flex; justify-content: center; gap: 24px;
+    margin-top: 40px; flex-wrap: wrap;
+  }
+  .contacts-row a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+  }
+  .contacts-row a:hover { color: var(--accent); }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    padding: 40px 0;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ---------- SCROLL ANIMATION ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s, transform 0.7s;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ---------- MOBILE ---------- */
+  @media (max-width: 640px) {
+    section { padding: 70px 0; }
+    .btn-outline { margin-left: 0; margin-top: 12px; }
+    .stats { margin-top: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="badge">От идеи до готового ролика </div>
+    <h1>Короткие видео,<br>которые <span class="accent">создают впечатление</span></h1>
+    <p>Съемка и монтаж коротких видео для брендов, экспертов и личных событий.
+        <div class=""></div> 
+    </p>
+    <div>
+      <a href="#contact" class="btn">Оставить заявку →</a>
+      <a href="#portfolio" class="btn btn-outline">Смотреть работы</a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="label">Услуги</div>
+      <h2>Выберите формат<br>сотрудничества</h2>
+    </div>
+    <div class="cards">
+      <div class="card reveal">
+        <h3>Ролик до 60 секунд</h3>
+        <p class="desc">События: праздники, мероприятия, вечеринки</p>
+        <ul>
+          <li>Съёмка 1 час</li>
+          <li>Монтаж видео формата 9:16 под все платформы</li>
+          <li>Цветокоррекция и звук</li>
+        </ul>
+        <div class="price">от 2 000 ₽ <small>/ ролик</small></div>
+      </div>
+      <div class="card featured reveal">
+        <h3>3 ролика до 60 секунд</h3>
+        <p class="desc">Экспертные и продающие видео</p>
+        <ul>
+          <li>Съёмка 2-3 часа</li>
+          <li>Монтаж видео формата 9:16 под все платформы</li>
+          <li>Цветокоррекция и звук</li>
+          <li>Идея и сценарий</li>
+        </ul>
+        <div class="price">от 5 000 ₽ <small>/ пакет</small></div>
+      </div>
+      <div class="card reveal">
+        <h3>5 роликов до 60 секунд</h3>
+        <p class="desc">События, экспертные и продающие видео</p>
+        <ul>
+          <li>Съёмка до 5 часов</li>
+          <li>Монтаж видео формата 9:16 под все платформы</li>
+          <li>Цветокоррекция и звук</li>
+          <li>Идея и сценарий</li>
+          <li>Исходники в вашем распоряжении</li>
+        </ul>
+        <div class="price">от 10 000 ₽ <small>/ пакет</small></div>
+      </div>
+    </div>
+          <!-- Плашка с условиями -->
+      <div class="terms reveal">
+        <div class="terms-item">
+          <div class="icon">⏱</div>
+          <div>
+            <strong>Срок сдачи — до 3 дней</strong>
+            Включая день съёмки. За срочный заказ — <span class="accent">доплата</span>.
+          </div>
+        </div>
+        <div class="terms-item">
+          <div class="icon">🤝</div>
+          <div>
+            <strong>Пакеты гибкие</strong>
+            Условия обсуждаем <span class="accent">индивидуально</span> — под вашу задачу и бюджет.
+          </div>
+        </div>
+      </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section>
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="label">Процесс</div>
+      <h2>Как мы будем<br>работать</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="num">01</div><h4>Бриф</h4><p>Обсуждаем задачу, целевую аудиторию, стиль и референсы.</p></div>
+      <div class="step reveal"><div class="num">02</div><h4>Съёмка</h4><p>Приезжаю на локацию, снимаю по согласованному сценарию.</p></div>
+      <div class="step reveal"><div class="num">03</div><h4>Монтаж</h4><p>Собираю ролик, добавляю звук, субтитры и графику при необходимости.</p></div>
+      <div class="step reveal"><div class="num">04</div><h4>Правки</h4><p>Вы вносите замечания - я правлю до результата. Сдача.</p></div>
+    </div>
+  </div>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="label">Портфолио</div>
+      <h2>Мои работы</h2>
+    </div>
+
+    <div class="portfolio">
+      <div class="portfolio-item reveal">
+        <div class="video-card" style="background-image: url('img/work-1.jpg');">
+          <div class="play">▶</div>
+        </div>
+        <div class="portfolio-caption">День рождения на природе</div>
+      </div>
+
+      <div class="portfolio-item reveal">
+        <div class="video-card" style="background-image: url('img/work-2.jpg');">
+          <div class="play">▶</div>
+        </div>
+        <div class="portfolio-caption">Путешествие на Сахалин</div>
+      </div>
+
+      <div class="portfolio-item reveal">
+        <div class="video-card" style="background-image: url('img/work-3.jpg');">
+          <div class="play">▶</div>
+        </div>
+        <div class="portfolio-caption">Промо-ролик для Лэтуаль</div>
+      </div>
+
+      <div class="portfolio-item reveal">
+        <div class="video-card" style="background-image: url('img/work-4.jpg');">
+          <div class="play">▶</div>
+        </div>
+        <div class="portfolio-caption">Контент для туркомпании</div>
+      </div>
+    </div>
+
+    <div class="portfolio-note reveal">
+      📹 <strong>Примеры видео - по запросу.</strong> Напишите мне, и я пришлю свои работы.
+    </div>
+
+  </div>
+</section>
+
+      
+<!-- FAQ -->
+<section>
+  <div class="container">
+    <div class="section-head reveal" style="text-align:center;">
+      <div class="label"></div>
+      <h2>Частые вопросы</h2>
+    </div>
+    <div class="faq">
+      <div class="faq-item reveal">
+        <div class="faq-q">Сколько стоит один ролик?</div>
+        <div class="faq-a">Всё индивидуально. Цена зависит от сложности монтажа и технической необходимости: озвучка, субтитры, свет, стабилизация, количество локаций, хронометраж. В среднем - от 2 000 ₽ за ролик.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">Как быстро вы сдаёте работу?</div>
+        <div class="faq-a">Монтаж — 24-48 часов. Съёмка + монтаж нескольких роликов — 3-5 дней. Если нужно день в день - есть срочный тариф.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">Сколько правок входит в стоимость?</div>
+        <div class="faq-a">До 3 раундов правок бесплатно. Дальше - от 500 руб. за правку. Обычно всё укладывается в 1-2 круга.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">Работаете по договору?</div>
+        <div class="faq-a">При необходимости заключаем договор, работаю с ИП и ООО, предоставляю закрывающие документы. Для физлиц - предоплата 50%.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-q">В каком городе вы снимаете?</div>
+        <div class="faq-a">Съёмка в Красноярске. Монтаж ваших исходных видео - удалённо по всей России и за её пределами.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="reveal">
+      <div class="label" style="color:var(--accent); font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.15em; margin-bottom:12px;"></div>
+      <h2>Обсудим ваш проект?</h2>
+      <p>Напишите в удобный мессенджер или оставьте заявку. Отвечаю в течение дня. </p>
+    </div>
+    <form id="orderForm">
+      <input type="text" id="userName" placeholder="Ваше имя" required>
+      <input type="text" id="userContact" placeholder="Телефон или Telegram" required>
+      <textarea id="userMessage" rows="4" placeholder="Коротко о задаче: что нужно снять, сколько роликов, сроки" required></textarea>
+      <button type="submit" class="btn">Отправить заявку →</button>
+    </form>
+    <div class="contacts-row">
+  <a href="https://t.me/anna.paranina" target="_blank" rel="noopener">✈️ Telegram</a>
+  <a href="https://max.ru/u79135352129" target="_blank" rel="noopener">💬 MAX</a>
+  <a href="https://vk.ru/momanechka" target="_blank" rel="noopener">🔵 ВКонтакте</a>
+</div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    ©© 2026 Анна Калашникова. Съёмка и монтаж коротких видео.
+  </div>
+</footer>
+
+<script>
+  // Появление при скролле
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // FAQ аккордеон
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.querySelector('.faq-q').addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+  
+  // Отправка формы в Telegram
+  const orderForm = document.getElementById('orderForm');
+  if (orderForm) {
+    orderForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('userName').value.trim();
+      const contact = document.getElementById('userContact').value.trim();
+      const message = document.getElementById('userMessage').value.trim();
+
+      const BOT_TOKEN = '8968134660:AAEaWCqAH7nD6uH1GdAx_hP5zxdCJJm8xXA';
+      const CHAT_ID = '887446329';
+
+      const text = `🔔 Новая заявка с сайта!\n\n👤 Имя: ${name}\n📞 Контакт: ${contact}\n💬 Задача: ${message}`;
+
+      const button = orderForm.querySelector('button');
+      const originalText = button.textContent;
+      button.textContent = 'Отправляю...';
+      button.disabled = true;
+
+      try {
+        const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: CHAT_ID,
+            text: text
+          })
+        });
+
+        if (response.ok) {
+          alert('Спасибо! Ваша заявка отправлена. Я свяжусь с вами в ближайшее время.');
+          orderForm.reset();
+        } else {
+          throw new Error('Ошибка отправки');
+        }
+      } catch (error) {
+        alert('Не удалось отправить заявку. Пожалуйста, напишите мне в Telegram: @anna_paranina');
+      } finally {
+        button.textContent = originalText;
+        button.disabled = false;
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
